@@ -19,10 +19,10 @@ class FavService {
     await this.set(products.filter(({ id }) => id !== product.id));
   }
 
-  async clear() {
+ /*  async clear() {
     await localforage.removeItem(DB);
     this._updCounters();
-  }
+  } */
 
   async get(): Promise<ProductData[]> {
     return (await localforage.getItem(DB)) || [];

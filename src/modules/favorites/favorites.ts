@@ -7,11 +7,6 @@ import { ProductData } from 'types';
 class Favorites extends Component {
     products!: ProductData[];
 
-    private async _clearFav() {
-        await favService.clear()
-        await this.render()
-    }
-
     async render() {
         this.products = await favService.get();
 
@@ -25,9 +20,6 @@ class Favorites extends Component {
             productComp.render();
             productComp.attach(this.view.favList);
         });
-
-        const btn: any = document.querySelector('.favorites__btn')
-        btn.onclick = this._clearFav.bind(this);
     }
 }
 
