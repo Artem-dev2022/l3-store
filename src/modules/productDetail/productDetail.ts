@@ -4,6 +4,7 @@ import { formatPrice } from '../../utils/helpers';
 import { ProductData } from 'types';
 import html from './productDetail.tpl.html';
 import { cartService } from '../../services/cart.service';
+import { favService } from '../../services/favorites.service';
 
 class ProductDetail extends Component {
   more: ProductList;
@@ -32,10 +33,17 @@ class ProductDetail extends Component {
     this.view.description.innerText = description;
     this.view.price.innerText = formatPrice(salePriceU);
     this.view.btnBuy.onclick = this._addToCart.bind(this);
+    this.view.btnFav.onclick = this._addToFav.bind(this);
 
     const isInCart = await cartService.isInCart(this.product);
+    const isInFav = await favService.isInFav(this.product);
 
     if (isInCart) this._setInCart();
+    if (isInFav) {
+        this._setInFav();
+    } else {
+        this._setOutFav();
+    }
 
     fetch(`/api/getProductSecretKey?id=${id}`)
       .then((res) => res.json())
@@ -50,6 +58,23 @@ class ProductDetail extends Component {
       });
   }
 
+  private async _addToFav(){
+    if (!this.product) return;
+
+    await favService.isInFav(this.product)
+      .then((res) => {
+        if (!this.product) return;
+            if (res) {
+          favService.removeProduct(this.product);
+          this._setOutFav();
+          
+        } else {
+          favService.addProduct(this.product);
+          this._setInFav();
+        }
+      })
+  }
+
   private _addToCart() {
     if (!this.product) return;
 
@@ -58,8 +83,15 @@ class ProductDetail extends Component {
   }
 
   private _setInCart() {
-    this.view.btnBuy.innerText = '✓ В корзине';
+    this.view.btnBuy.innerText = '✓ В корзине';
     this.view.btnBuy.disabled = true;
+  }
+
+  private _setInFav() {
+    this.view.btnFav.classList.add('isInFav')
+  }
+  private _setOutFav() {
+    this.view.btnFav.classList.remove('isInFav')
   }
 }
 

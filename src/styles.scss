@@ -120,11 +120,13 @@ img {
   }
 }
 
-.cart {
+.cart,
+.favorites__link {
   position: relative;
 }
 
-.cartCounter {
+.cartCounter,
+.favCounter {
   position: absolute;
   right: -21px;
   top: -10px;

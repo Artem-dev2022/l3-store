@@ -68,3 +68,18 @@
     margin-top: 3em;
   }
 }
+
+.svg-icon {
+  display: block;
+}
+.btnFav__added {
+  display: none;
+}
+.isInFav {
+  .svg-icon {
+    display: none;
+}
+ .btnFav__added {
+    display: block;
+}}
+
