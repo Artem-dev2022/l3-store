@@ -32,6 +32,6 @@ export default class Router {
     component.attach(this.$appRoot);
     component.render();
 
-    analyzeEvent('route', window.location.href )
+    analyzeEvent('route', {url: window.location.href} )
   }
 }

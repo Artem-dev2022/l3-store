@@ -1,44 +1,45 @@
+import { ProductData } from 'types';
+
 export const analyzeEvent = (
         type: string,
-        url?: string,
-        productProperties?: any,
-        secretKey?: string,
-        orderId?: number,
-        totalPrice?: number,
-        productIds?: [number]
+        payload: {
+            url?: string,
+            productProperties?: ProductData,
+            secretKey?: string,
+            orderId?: number,
+            totalPrice?: number,
+            productIds?: number[]
+        }
     ) => {
-    type event = {
-        type: string;
-        payload: any;
-        timestamp: number;
-    };
-
-    let data: event = {
+    let data: {
+        type: string,
+        payload: [] | {}, 
+        timestamp: number
+    } = {
         type: type,
-        payload: '', 
+        payload: [], 
         timestamp: Date.now()
     }
 
     if (type === 'route') {
-        data.payload = { 'url': url }
+        data.payload = { 'url': payload.url }
     } else if (type === 'viewCard') {
-        data.payload = [productProperties, secretKey]
-        if (productProperties.log !== '') {
+        data.payload = [payload.productProperties, payload.secretKey]
+        if (JSON.stringify(payload.productProperties?.log) !== '{}') {
             data.type = 'viewCardPromo' 
         }
     } else if (type === 'addToCard') {
-        data.payload = productProperties
+        if (payload.productProperties) data.payload = payload.productProperties
     } else if (type === 'purchase') {
         data.payload = { 
-            orderId: orderId, 
-            totalPrice: totalPrice, 
-            productIds: productIds 
+            orderId: payload.orderId, 
+            totalPrice: payload.totalPrice, 
+            productIds: payload.productIds 
         }
     } else {
         return
     }
 
-    console.log(data)
     fetch('/api/sendEvent', {
         method: 'POST',
         body: JSON.stringify(data)
