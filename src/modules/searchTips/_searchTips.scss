@@ -1,0 +1,36 @@
+.search-tips {
+    display: flex;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 24px;
+    &__text {
+        margin: 2px 10px 0 0;
+        color: var(--system-black, #000);
+        &__or {
+            margin: 0 10px 0 5px;
+        }
+    }
+    &__comma {
+        margin-right: 8px;
+    }
+    &__btn {
+        margin-right: 6px;
+        border: none;
+        border-radius: 8px;
+        padding: 4px 6px 8px 6px;
+        background: var(--system-smoky, #F6F6FA);
+        cursor: pointer;
+    }
+    &__tip {
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 550;
+        line-height: 24px;
+        letter-spacing: -0.65px;
+        background: linear-gradient(93deg, #DA15B8 4.93%, #8D06CC 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}

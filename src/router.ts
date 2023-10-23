@@ -4,13 +4,15 @@ import { homepageComp } from './modules/homepage/homepage';
 import { productDetailComp } from './modules/productDetail/productDetail';
 import { checkoutComp } from './modules/checkout/checkout';
 import { favoritesComp } from './modules/favorites/favorites';
+import { searchTipsComp } from './modules/searchTips/searchTips';
 
 const ROUTES = {
   '/': homepageComp,
   '/catalog': catalogComp,
   '/product': productDetailComp,
   '/checkout': checkoutComp,
-  '/favorites': favoritesComp
+  '/favorites': favoritesComp,
+  '/searchTips': searchTipsComp
 };
 
 export default class Router {
